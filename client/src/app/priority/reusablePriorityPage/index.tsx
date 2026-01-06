@@ -73,7 +73,7 @@ const columns: GridColDef[] = [
     const [view, setView] = useState("list");   
     const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
 
-    const { data : currentUser } = useGetAuthUserQuery({});
+    const { data : currentUser, isLoading: isAuthLoading } = useGetAuthUserQuery({});
     const userId = currentUser?.userDetails?.userId ?? null;
     const {data: tasks, isLoading, isError: isTasksError} = useGetTasksByUserQuery(userId || 0,  {skip: userId === null});
 
@@ -83,7 +83,9 @@ const columns: GridColDef[] = [
     (task: Task) => task.priority === priority,
   );
 
-    if (isTasksError || !tasks) return <div>Error fetching tasks</div>;
+    if (isAuthLoading || (userId !== null && isLoading)) return <div>Loading tasks...</div>;
+    if (isTasksError) return <div>Error fetching tasks</div>;
+    if (!userId) return <div>Please sign in to view your tasks</div>;
 
     return (
         <div className="m-5 p-4">
