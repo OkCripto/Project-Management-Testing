@@ -4,7 +4,11 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import pg from "pg";
 
 const pool = new pg.Pool({ 
-  connectionString: process.env.DATABASE_URL,
+  host: 'pm-rds.ce3goiimm4y7.us-east-1.rds.amazonaws.com',
+  port: 5432,
+  user: 'postgres',
+  password: 'wndwfn99ra',
+  database: 'projectmanagement',
   ssl: {
     rejectUnauthorized: false
   }
