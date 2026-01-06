@@ -4,6 +4,8 @@ import React, { useEffect } from 'react'
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import StoreProvider, { useAppSelector } from './redux';
+import AuthProvider from "./authProvider";
+import "@aws-amplify/ui-react/styles.css";
 
 
 const DasshboardLayout  = ({children}:{children: React.ReactNode}) => {
@@ -34,7 +36,9 @@ const DasshboardLayout  = ({children}:{children: React.ReactNode}) => {
 const DashboardWrapper = ({children}: {children: React.ReactNode}) => {
     return (
         <StoreProvider>
+            <AuthProvider>
             <DasshboardLayout>{children}</DasshboardLayout>
+            </AuthProvider>
         </StoreProvider>
     )
 }
